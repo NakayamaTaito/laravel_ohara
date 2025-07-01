@@ -1,7 +1,25 @@
 <?php
 
+use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\ProfileController;
+use App\Models\ContactForm;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('contacts') // 頭に contacts をつける ​
+
+->middleware(['auth']) // 認証 ​
+
+->name('contacts.') // ルート名 ​
+
+->controller(ContactFormController::class) // コントローラ指定 ​
+
+->group(function(){ // グループ化 ​
+
+	Route::get('/', 'index')->name('index');  }); 
+	Route::get('/create', 'create')->name('create'); 
+
+
+Route::get('/contacts',[ContactFormController::class,'index'])->name('contacts.index')
 
 Route::get('/', function () {
     return view('welcome');
