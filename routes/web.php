@@ -15,11 +15,12 @@ Route::prefix('contacts') // 頭に contacts をつける ​
 
 ->group(function(){ // グループ化 ​
 
-	Route::get('/', 'index')->name('index');  }); 
+	Route::get('/', 'index')->name('index'); 
 	Route::get('/create', 'create')->name('create'); 
+    Route::post('/','store')->name('store');
+});
 
-
-Route::get('/contacts',[ContactFormController::class,'index'])->name('contacts.index')
+Route::get('/contacts',[ContactFormController::class,'index'])->name('contacts.index');
 
 Route::get('/', function () {
     return view('welcome');

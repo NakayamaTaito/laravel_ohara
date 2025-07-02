@@ -12,8 +12,17 @@ class ContactFormController extends Controller
      */
     public function index()
     {
-        //
-        return view('contacts.index');
+        //dbから情報
+        $contacts = contactForm::select('id','name','title','gender','created_at')->get_();
+        //gender結び付け
+        if($contacts->gender === 0){
+            $gender = '男性';
+        } else{
+            $gender = '女性';
+        }
+
+
+        return view('contacts.index',);
     }
 
     /**
@@ -22,7 +31,7 @@ class ContactFormController extends Controller
     public function create()
     {
         //
-         return view('contacts.create');
+         return view('contacts.index',compact('contacts'));
     }
 
     /**
@@ -30,7 +39,19 @@ class ContactFormController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //フォームから送られてきたデータの確認
+        dd($request->age);
+        ContactForm::create([
+            'name' => $request->name ,
+            'title' => $request->title ,
+            'email' => $request->email ,
+            'url' => $request->url ,
+            'gender' => $request->gender ,
+            'age' => $request->age ,
+            'contact' => $request->contact ,
+        ]);
+        return to_route('contacts.index');
+}
     }
 
     /**
@@ -64,4 +85,4 @@ class ContactFormController extends Controller
     {
         //
     }
-}
+
